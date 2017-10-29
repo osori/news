@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="{% static "news/css/materialize.min.css" %}"  media="screen,projection"/>
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+
+	<div class="container">
+	  <nav>
+	    <div class="nav-wrapper blue darken-2">
+	      <a href="#" class="brand-logo center">뉴스 검색!</a>
+	      <ul id="nav-mobile" class="right hide-on-med-and-down">
+	      </ul>
+	    </div>
+	  </nav>
+	  <br>
+	 	<div class="row">
+			<form id="searchForm" action="{% url 'news:search' %}" method="get" accept-charset="utf-8">
+				<div class="col s8">
+					<input class="searchField" id="name" name="query" type="text" placeholder="한일관 대표 사망">
+				</div>
+				<div class="col s4">
+					<button class="btn waves-effect waves-light" type="submit">검색
+						<i class="material-icons right">search</i>
+					</button>
+				</div>
+				<div class="col s12 center">
+					<b>시간 정렬</b><br>
+					<input name="order_by" type="radio" id="asc" value="asc"/>
+					<label for="asc">옛날 기사부터</label>
+					<input name="order_by" type="radio" id="desc" value="desc" checked />
+					<label for="desc">최신 기사부터</label>
+				</div>
+			</form>
+		</div>
+		<div class="row">
+			<h4>화제의 키워드</h4>
+			{% for topic in top_topic_list %}
+			<div class="chip"><a href="{% url 'news:search' %}?query={{ topic }}">{{ topic }}</a></div>
+			{% endfor %}
+		</div>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="{% static "news/js/materialize.min.js" %}"/></script>
+	</div>
+</body>
+</html>
